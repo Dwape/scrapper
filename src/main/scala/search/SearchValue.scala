@@ -1,4 +1,4 @@
-package parser
+package search
 
 import org.jsoup.nodes.Element
 

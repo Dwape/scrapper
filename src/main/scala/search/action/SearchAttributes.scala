@@ -1,27 +1,25 @@
-package parser.action
-
+package search.action
 import org.jsoup.nodes.{Document, Element}
-
 import scala.jdk.CollectionConverters._
 
-case class SearchClasses(classes: Seq[String]) extends SearchAction {
+case class SearchAttributes(attributes: Seq[String]) extends SearchAction {
 
   override def find()(implicit document: Document): Seq[Element] = {
     document
-      .getElementsByClass(classes.head)
+      .getElementsByAttribute(attributes.head)
       .asScala
       .toSeq
       .filter{
-        element => classes.tail.map {
-          `class` => element.hasClass(`class`)
+        element => attributes.tail.map {
+          attribute => element.hasAttr(attribute)
         }.forall(b => b)
       }
   }
 
   override def filter(elements: Seq[Element])(implicit document: Document): Seq[Element] = {
     elements.filter{
-      element => classes.map {
-        `class` => element.hasClass(`class`)
+      element => attributes.map {
+        attribute => element.hasAttr(attribute)
       }.forall(b => b)
     }
   }

@@ -1,7 +1,7 @@
-package parser.value
+package search.value
 
 import org.jsoup.nodes.Element
-import parser.SearchValue
+import search.SearchValue
 
 case class TextSearchValue() extends SearchValue {
 

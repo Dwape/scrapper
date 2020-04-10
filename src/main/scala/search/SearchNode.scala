@@ -1,7 +1,7 @@
-package parser
+package search
 
 import org.jsoup.nodes.{Document, Element}
-import parser.action.{SearchAction, SearchActionChain, SearchAttributes, SearchClasses, SearchId, SearchParent, SearchTag}
+import search.action.{SearchAction, SearchActionChain, SearchAttributes, SearchClasses, SearchId, SearchParent, SearchTag}
 
 import scala.collection.mutable.ListBuffer
 

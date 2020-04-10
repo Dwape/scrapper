@@ -1,4 +1,4 @@
-package parser.action
+package search.action
 import org.jsoup.nodes.{Document, Element}
 import scala.jdk.CollectionConverters._
 

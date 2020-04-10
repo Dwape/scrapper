@@ -1,7 +1,7 @@
-package parser.action
+package search.action
 
 import org.jsoup.nodes.{Document, Element}
-import parser.SearchNode
+import search.SearchNode
 import scala.jdk.CollectionConverters._
 
 case class SearchParent(parent: SearchNode) extends SearchAction {

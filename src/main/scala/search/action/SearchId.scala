@@ -1,4 +1,4 @@
-package parser.action
+package search.action
 import org.jsoup.nodes.{Document, Element}
 
 case class SearchId(id: String) extends SearchAction {

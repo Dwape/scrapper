@@ -1,7 +1,7 @@
-package parser.value
+package search.value
 
 import org.jsoup.nodes.Element
-import parser.{SearchNode, SearchValue}
+import search.{SearchNode, SearchValue}
 
 // Will we need this class?
 case class HTMLSearchValue() extends SearchValue {

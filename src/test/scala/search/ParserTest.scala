@@ -1,4 +1,4 @@
-package parser
+package search
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -99,7 +99,7 @@ class ParserTest extends AnyFlatSpec with Matchers {
   "Parser" should "be able to get text values" in {
     implicit val document: Document = Jsoup.parse("<html><head></head><body><div id=\"test\"><p class=\"text\">Example</p></div></body></html>")
 
-    val result = ParserBuilder()
+    val result = FinderBuilder()
       .classes(List("text"))
       .parent(SearchNode().id("test"))
       .selectText()
@@ -111,7 +111,7 @@ class ParserTest extends AnyFlatSpec with Matchers {
   "Parser" should "be able to get html values" in {
     implicit val document: Document = Jsoup.parse("<html><head></head><body><div id=\"test\"><p class=\"text\">Example</p></div></body></html>")
 
-    val result = ParserBuilder()
+    val result = FinderBuilder()
       .id("test")
       .selectHTML()
       .value()
@@ -122,7 +122,7 @@ class ParserTest extends AnyFlatSpec with Matchers {
   "Parser" should "be able to get attribute values" in {
     implicit val document: Document = Jsoup.parse("<html><head></head><body><div id=\"test\"><a href=\"google.com\"></a></div></body></html>")
 
-    val result = ParserBuilder()
+    val result = FinderBuilder()
       .parent(SearchNode().id("test"))
       .selectAttribute("href")
       .value()
