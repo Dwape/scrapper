@@ -96,7 +96,7 @@ class ParserTest extends AnyFlatSpec with Matchers {
     element shouldBe None
   }
 
-  "Parser" should "work" in {
+  "Parser" should "be able to get text values" in {
     implicit val document: Document = Jsoup.parse("<html><head></head><body><div id=\"test\"><p class=\"text\">Example</p></div></body></html>")
 
     val result = ParserBuilder()
@@ -104,6 +104,29 @@ class ParserTest extends AnyFlatSpec with Matchers {
       .parent(SearchNode().id("test"))
       .selectText()
       .value()
-    println(result)
+    result shouldBe a[Some[_]]
+    result.get should be("Example")
+  }
+
+  "Parser" should "be able to get html values" in {
+    implicit val document: Document = Jsoup.parse("<html><head></head><body><div id=\"test\"><p class=\"text\">Example</p></div></body></html>")
+
+    val result = ParserBuilder()
+      .id("test")
+      .selectHTML()
+      .value()
+    result shouldBe a[Some[_]]
+    result.get should be("<p class=\"text\">Example</p>")
+  }
+
+  "Parser" should "be able to get attribute values" in {
+    implicit val document: Document = Jsoup.parse("<html><head></head><body><div id=\"test\"><a href=\"google.com\"></a></div></body></html>")
+
+    val result = ParserBuilder()
+      .parent(SearchNode().id("test"))
+      .selectAttribute("href")
+      .value()
+    result shouldBe a[Some[_]]
+    result.get should be("google.com")
   }
 }
