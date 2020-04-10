@@ -20,8 +20,6 @@ case class ParserBuilder(node: SearchNode = SearchNode()) { // Parser for a sing
   def selectHTML() = new ValueParser(node, HTMLSearchValue())
 
   def selectText() = new ValueParser(node, TextSearchValue())
-
-  def setValue(value: String) = new SetValueParser(value) // This could be improved
 }
 
 
