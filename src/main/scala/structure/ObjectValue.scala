@@ -1,6 +1,6 @@
 package structure
 
-import play.api.libs.json.{JsArray, JsNumber, JsObject, JsString, JsValue, Json}
+import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsObject, JsString, JsValue, Json}
 
 case class ObjectValue(properties: List[Property] = List()) extends Value {
   override def parse(): String = {
@@ -14,7 +14,46 @@ case class ObjectValue(properties: List[Property] = List()) extends Value {
       // .replaceAll(",", s",\n${"  "*depth}")
   }
 
-  // We could also receive a Json
+  def addProperty(property: Property, keys: List[String] = List()): ObjectValue = {
+    // Add way to add at an index.
+    if (keys.isEmpty) ObjectValue(properties :+ property)
+      // We need to check if it valid
+    else {
+      val current = keys.head
+      val next = keys.tail
+      val (before, after) = properties.span(p => p.key != current)
+      if (after.isEmpty) this // What do we do if it can't be added?
+      else {
+        after.head.value match {
+          case value: ObjectValue =>
+            ObjectValue((before :+ Property(current, value.addProperty(property, next))) ++ after.tail)
+          case _ => this
+        }
+      }
+    }
+  }
+
+  def addPropertyAtIndex(property: Property, index: Int, keys: List[String] = List()): ObjectValue = {
+    if (keys.isEmpty) {
+      val (before, after) = properties.splitAt(index) // Check how this works?
+      ObjectValue((before :+ property) ++ after)
+    }
+    // We need to check if it valid
+    else {
+      val current = keys.head
+      val next = keys.tail
+      val (before, after) = properties.span(p => p.key != current)
+      if (after.isEmpty) this // What do we do if it can't be added?
+      else {
+        after.head.value match {
+          case value: ObjectValue =>
+            ObjectValue((before :+ Property(current, value.addPropertyAtIndex(property, index, next))) ++ after.tail)
+          case _ => this
+        }
+      }
+    }
+  }
+
   def fromJson(json: String): ObjectValue = {
     /*
     val parsed = Json.parse(String).as[JsObject]
@@ -35,7 +74,8 @@ case class ObjectValue(properties: List[Property] = List()) extends Value {
     case value: JsArray => ArrayValue(value.value.map { v => fromJson(v) }.toList)
     case value: JsString =>
       StringValue(value.toString().replaceAll(""""""", ""))
-    case value: JsNumber => StringValue(value.value.toString())
+    case value: JsNumber => NumberValue(value.value.doubleValue)
+    case value: JsBoolean => BooleanValue(value.value)
     // Consider other types.
   }
 }

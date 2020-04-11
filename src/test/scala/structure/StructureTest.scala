@@ -9,6 +9,7 @@ import parser.DocumentParser
 import play.api.libs.json.Json
 import search.{FinderBuilder, SearchNode}
 import response.{Response, SuccessfulResponse}
+import scrapper.{Scrapper, UrlScrapper}
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -86,6 +87,16 @@ class StructureTest extends AnyFlatSpec with Matchers {
     val document: Document = Jsoup.parse("<html><head></head><body><a id=\"link\" href=\"http://www.lanacion.com.ar\"></a></body></html>")
     val parser = new DocumentParser()
     parser.parse(document)
+  }
+
+  "Scrapper" should "scrap a site" in {
+    val scrapper = new UrlScrapper()
+    val result = Await.result(scrapper.scrap("http://www.imdb.com/title/tt0111161/"), 5 seconds)
+    result match {
+      case SuccessfulResponse(json) => println(json)
+      case _ => println("Something went wrong")
+    }
+
   }
 
 }
