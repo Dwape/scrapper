@@ -1,7 +1,9 @@
 package structure
 
-case class BooleanValue(value: Boolean) extends LeafValue {
-  override def parse(): String = s"""$value"""
+import org.jsoup.nodes.Document
 
-  override def depthParse(depth: Int): String = parse()
+case class BooleanValue(value: Boolean) extends LeafValue {
+  override def parse()(implicit document: Document): String = s"""$value"""
+
+  override def depthParse(depth: Int)(implicit document: Document): String = parse()
 }

@@ -1,7 +1,9 @@
 package structure
 
-case class StringValue(value: String) extends LeafValue {
-  override def parse(): String = s""""$value""""
+import org.jsoup.nodes.Document
 
-  override def depthParse(depth: Int = 0): String = parse()
+case class StringValue(value: String) extends LeafValue {
+  override def parse()(implicit document: Document): String = s""""$value""""
+
+  override def depthParse(depth: Int = 0)(implicit document: Document): String = parse()
 }

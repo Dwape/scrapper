@@ -15,6 +15,8 @@ case class FinderBuilder(node: SearchNode = SearchNode()) { // Parser for a sing
 
   def parent(parent: SearchNode): FinderBuilder = FinderBuilder(node.parent(parent))
 
+  def attributeValue(attribute: String, value: String): FinderBuilder = FinderBuilder(node.attributeValue(attribute, value))
+
   def selectAttribute(attribute: String) = new ValueFinder(node, AttributeSearchValue(attribute))
 
   def selectHTML() = new ValueFinder(node, HTMLSearchValue())

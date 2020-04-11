@@ -1,13 +1,14 @@
 package structure
 
+import org.jsoup.nodes.Document
 import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsObject, JsString, JsValue, Json}
 
 case class ObjectValue(properties: List[Property] = List()) extends Value {
-  override def parse(): String = {
+  override def parse()(implicit document: Document): String = {
     properties
       .foldLeft("{")((acc, current) => s"$acc${current.parse()},").dropRight(2)+"}" // Do we need to add new lines?
   }
-  override def depthParse(depth: Int = 0): String = {
+  override def depthParse(depth: Int = 0)(implicit document: Document): String = {
     properties
       .foldLeft(s"{\n")((acc, current) => s"$acc${current.depthParse(depth+1)},\n")
       .dropRight(2)+s"\n${"  "*depth}}"

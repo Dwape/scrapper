@@ -6,7 +6,7 @@ case class JsonSearchPropertyBuilder(keys: Seq[String] = Seq()) {
     JsonSearchPropertyBuilder(keys :+ key)
   }
 
-  def find(key: String): JsonSearchProperty = {
-    JsonSearchProperty(keys :+ key)
+  def find(key: String, finder: Finder): JsonSearchProperty = {
+    JsonSearchProperty(keys :+ key, finder)
   }
 }
