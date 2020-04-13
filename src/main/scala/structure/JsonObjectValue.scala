@@ -4,6 +4,15 @@ import org.jsoup.nodes.Document
 import play.api.libs.json.{JsObject, Json}
 import search.{Finder, JsonSearchProperty}
 
+/**
+ * An object value built using a Json.
+ *
+ * The Json is converted and all operations are executed when the object is parsed.
+ * This allows the Document to be changed while still using the same structure to get the json-ld.
+ *
+ * @param json The json from which the object's properties will be taken.
+ * @param operations The operations executed on the Object.
+ */
 case class JsonObjectValue(json: Finder, operations: List[(Property, List[String], Int)] = List()) extends Value { // This could be its own type
 
   override def parse()(implicit document: Document): String = {

@@ -2,6 +2,10 @@ package structure
 
 import org.jsoup.nodes.Document
 
+/**
+ * Represents a Json array.
+ * @param values The values inside the array.
+ */
 case class ArrayValue(values: List[Value]) extends Value {
   override def parse()(implicit document: Document): String = {
     values

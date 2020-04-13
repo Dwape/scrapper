@@ -2,6 +2,9 @@ package structure
 
 import org.jsoup.nodes.Document
 
+/**
+ * Represents a Json string value
+ */
 case class StringValue(value: String) extends LeafValue {
   override def parse()(implicit document: Document): String = s""""$value""""
 

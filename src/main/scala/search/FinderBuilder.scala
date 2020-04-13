@@ -3,6 +3,12 @@ package search
 import org.jsoup.nodes.Document
 import search.value.{AttributeSearchValue, HTMLSearchValue, TextSearchValue}
 
+/**
+ * Builds a Finder that can be used to filter the elements of the DOM and return a specific value from the result.
+ *
+ * It is important to note that adding two filters of the same time is not possible.
+ * It any of the methods is called twice, the first filter will be overwritten.
+ */
 case class FinderBuilder(node: SearchNode = SearchNode()) { // Parser for a single value.
 
   def id(id: String): FinderBuilder = FinderBuilder(node.id(id))

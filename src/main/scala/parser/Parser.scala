@@ -1,15 +1,24 @@
 package parser
 
 import org.jsoup.nodes.Document
+import structure.Value
 
-trait Parser {
+/**
+ * Parses a Document, returning the json-ld describing the Things in it.
+ */
+abstract class Parser {
+
+  lazy val structure: Value = createStructure()
 
   /**
    * Takes a DOM and returns the corresponding Json-ld.
    * @param document
-   * @return
+   * @return The json-ld or an empty string if the DOM cannot be parsed.
    */
-  // Should we receive a url here? Maybe we could receive some params.
-  def parse(document: Document): String // What should we return here?
-  // Should we validate before of after?
+  def parse(document: Document): String = {
+    implicit val doc: Document = document // How should this be done?
+    this.structure.depthParse()
+  }
+
+  protected def createStructure(): Value
 }

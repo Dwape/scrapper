@@ -3,6 +3,11 @@ package structure
 import org.jsoup.nodes.Document
 import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsObject, JsString, JsValue, Json}
 
+/**
+ * Represents a Json object, containing properties.
+ * These properties can be Objects, Arrays or other values, so this structure is nested.
+ * @param properties The properties of the object.
+ */
 case class ObjectValue(properties: List[Property] = List()) extends Value {
   override def parse()(implicit document: Document): String = {
     properties

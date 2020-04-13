@@ -5,6 +5,9 @@ import search.action.{SearchAction, SearchActionChain, SearchAttributeValue, Sea
 
 import scala.collection.mutable.ListBuffer
 
+/**
+ * A combination of filters that can be used to find an element in the DOM.
+ */
 case class SearchNode(id: Option[String] = None,
                       tag: Option[String] = None,
                       classes: Option[Seq[String]] = None,

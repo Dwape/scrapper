@@ -5,7 +5,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import parser.DocumentParser
 import play.api.libs.json.Json
 import search.{FinderBuilder, SearchNode}
 import response.{Response, SuccessfulResponse}
@@ -81,12 +80,6 @@ class StructureTest extends AnyFlatSpec with Matchers {
         // Json.parse(res.parse())
       case _ =>
     }
-  }
-
-  "Parser" should "should be able to parse" in {
-    val document: Document = Jsoup.parse("<html><head></head><body><a id=\"link\" href=\"http://www.lanacion.com.ar\"></a></body></html>")
-    val parser = new DocumentParser()
-    parser.parse(document)
   }
 
   "Scrapper" should "scrap a site" in {

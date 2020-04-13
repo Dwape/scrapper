@@ -4,6 +4,10 @@ import org.jsoup.nodes.Document
 import play.api.libs.json.JsObject
 import search.JsonSearchProperty
 
+/**
+ * Represents a value taken from a Json.
+ * @param finder The JsonSearchProperty used to retrieve the value.
+ */
 case class JsonValue(finder: JsonSearchProperty) extends LeafValue {
   override def parse()(implicit document: Document): String = {
     finder.value() match {

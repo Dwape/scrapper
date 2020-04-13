@@ -7,9 +7,11 @@ import org.jsoup.nodes.Document
 
 import scala.concurrent.{ExecutionContext, Future}
 import response.{FailedResponse, Response, SuccessfulResponse}
-import response.error.{InvalidURLError, TimeoutError}
+import response.error.{InvalidURLError, TimeoutError, UnexpectedError}
 
-
+/**
+ * An implementation of the Fetcher trait.
+ */
 class UrlFetcher extends Fetcher {
 
   import ExecutionContext.Implicits.global // Check what to do with the execution context.
@@ -28,8 +30,9 @@ class UrlFetcher extends Fetcher {
     }.map {
       document => SuccessfulResponse(document)
     }.recover {
-      case _: IllegalArgumentException => FailedResponse(InvalidURLError(url)) // Do we need to check anything else from the exception.
+      case _: IllegalArgumentException => FailedResponse(InvalidURLError(url))
       case _: SocketTimeoutException => FailedResponse(TimeoutError(timeout))
+      case e: Throwable => FailedResponse(UnexpectedError(e))
       // Should we catch other cases?
     }
   }

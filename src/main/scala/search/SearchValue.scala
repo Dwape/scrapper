@@ -2,6 +2,9 @@ package search
 
 import org.jsoup.nodes.Element
 
+/**
+ * Finds the value of an element.
+ */
 trait SearchValue {
 
   /**

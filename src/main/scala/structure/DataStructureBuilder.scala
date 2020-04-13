@@ -2,6 +2,13 @@ package structure
 
 import play.api.libs.json.{JsArray, JsObject, JsString, JsValue, Json}
 
+/**
+ * Creates a new ObjectValue that represents a Thing as defined in http://schema.org
+ * Therefore, only the basic properties are required but more properties can be added.
+ * @param id The id of the Thing.
+ * @param `type` The type of the Thing.
+ * @param properties Initial properties of the Thing.
+ */
 case class DataStructureBuilder(id: LeafValue, `type`: LeafValue, properties: List[Property] = List()) {
 
   def withContext(value: LeafValue): DataStructureBuilder = {

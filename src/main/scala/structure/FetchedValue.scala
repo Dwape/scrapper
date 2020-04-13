@@ -3,7 +3,10 @@ package structure
 import org.jsoup.nodes.Document
 import search.Finder
 
-// Might be a good idea to rename it
+/**
+ * A value that is retrieved from an element in the DOM.
+ * @param parser The Finder that will be used to retrieve the value.
+ */
 case class FetchedValue(parser: Finder) extends LeafValue {
 
   // We could have a version that computes the value when it is created.
