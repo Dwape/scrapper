@@ -1,4 +1,4 @@
-import response.SuccessfulResponse
+import response.{FailedResponse, SuccessfulResponse}
 import scrapper.UrlScrapper
 
 import scala.concurrent.Await
@@ -14,7 +14,8 @@ object TestApp extends App {
     val result = Await.result(parser.scrap(url), 5 seconds)
     result match {
       case SuccessfulResponse(res) => println(res)
-      case _ => "Json-ld could not be generated."
+      case FailedResponse(error) => println(error.message)
+      case _ => println("Json-ld could not be generated.")
     }
   }
 }

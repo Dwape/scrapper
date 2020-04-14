@@ -48,6 +48,18 @@ class UrlRegistry extends Registry {
       }
       Some(result)
 
+    case link if link.startsWith("https://www.garbarino.com/producto") =>
+      val result = new Parser() {
+        override protected def createStructure(): Value = {
+          val parser = FinderBuilder()
+            .attributeValue("type", "application/ld+json")
+            .forIndex(0)
+            .selectHTML()
+          JsonObjectValue(parser)
+        }
+      }
+      Some(result)
+
     case _ => None
   }
 }

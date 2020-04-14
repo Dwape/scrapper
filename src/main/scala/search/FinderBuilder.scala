@@ -9,25 +9,27 @@ import search.value.{AttributeSearchValue, HTMLSearchValue, TextSearchValue}
  * It is important to note that adding two filters of the same time is not possible.
  * It any of the methods is called twice, the first filter will be overwritten.
  */
-case class FinderBuilder(node: SearchNode = SearchNode()) { // Parser for a single value.
+case class FinderBuilder(node: SearchNode = SearchNode(), index: Int = -1) { // Parser for a single value.
 
-  def id(id: String): FinderBuilder = FinderBuilder(node.id(id))
+  def id(id: String): FinderBuilder = FinderBuilder(node.id(id), index)
 
-  def tag(tag: String): FinderBuilder = FinderBuilder(node.tag(tag))
+  def tag(tag: String): FinderBuilder = FinderBuilder(node.tag(tag), index)
 
-  def classes(classes: Seq[String]): FinderBuilder = FinderBuilder(node.classes(classes))
+  def classes(classes: Seq[String]): FinderBuilder = FinderBuilder(node.classes(classes), index)
 
-  def attributes(attributes: Seq[String]): FinderBuilder = FinderBuilder(node.attributes(attributes))
+  def attributes(attributes: Seq[String]): FinderBuilder = FinderBuilder(node.attributes(attributes), index)
 
-  def parent(parent: SearchNode): FinderBuilder = FinderBuilder(node.parent(parent))
+  def parent(parent: SearchNode): FinderBuilder = FinderBuilder(node.parent(parent), index)
 
-  def attributeValue(attribute: String, value: String): FinderBuilder = FinderBuilder(node.attributeValue(attribute, value))
+  def attributeValue(attribute: String, value: String): FinderBuilder = FinderBuilder(node.attributeValue(attribute, value), index)
 
-  def selectAttribute(attribute: String) = new ValueFinder(node, AttributeSearchValue(attribute))
+  def forIndex(index: Int): FinderBuilder = FinderBuilder(node, index)
 
-  def selectHTML() = new ValueFinder(node, HTMLSearchValue())
+  def selectAttribute(attribute: String) = new ValueFinder(node, AttributeSearchValue(attribute), index)
 
-  def selectText() = new ValueFinder(node, TextSearchValue())
+  def selectHTML() = new ValueFinder(node, HTMLSearchValue(), index)
+
+  def selectText() = new ValueFinder(node, TextSearchValue(), index)
 }
 
 

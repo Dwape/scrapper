@@ -26,6 +26,19 @@ case class SearchNode(id: Option[String] = None,
     else None
   }
 
+  /**
+   * Returns the element at a certain index when several elements are matched.
+   * If no element exists for the provided index, None is returned instead.
+   * @param index The index of the element
+   * @param document The document that will be searched
+   * @return The element, if found.
+   */
+  def find(index: Int)(implicit document: Document): Option[Element] = {
+    val action = buildActionChain()
+    val elements = action.execute()
+    elements.lift(index)
+  }
+
   def id(id: String): SearchNode = {
     SearchNode(Some(id), this.tag, this.classes, this.attributes, this.parent, this.attributeValue)
   }

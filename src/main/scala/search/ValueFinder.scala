@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document
  * @param node The SearchNode that represents an element in the DOM.
  * @param value The SearchValue that defines which value from the element to return.
  */
-class ValueFinder(node: SearchNode, value: SearchValue) extends Finder {
+class ValueFinder(node: SearchNode, value: SearchValue, index: Int = -1) extends Finder {
 
   /**
    * Returns the value of the matching SearchNode.
@@ -16,6 +16,7 @@ class ValueFinder(node: SearchNode, value: SearchValue) extends Finder {
    * @return An Option which will contain the value if any value is found.
    */
   def value()(implicit document: Document): Option[String] = {
-    node.find().flatMap(e => value.value(e))
+    if (index == -1) node.find().flatMap(e => value.value(e))
+    else node.find(index).flatMap(e => value.value(e))
   }
 }

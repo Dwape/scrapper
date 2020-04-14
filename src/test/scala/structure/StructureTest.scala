@@ -110,4 +110,13 @@ class StructureTest extends AnyFlatSpec with Matchers {
     }
   }
 
+  "Scrapper" should "be able to scrap even more sites" in {
+    val scrapper = new UrlScrapper()
+    val result = Await.result(scrapper.scrap("https://www.garbarino.com/producto/3a20ba7107"), 5 seconds)
+    result match {
+      case SuccessfulResponse(json) => println(json)
+      case _ => println("Something went wrong")
+    }
+  }
+
 }
