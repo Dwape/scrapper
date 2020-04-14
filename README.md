@@ -1,1 +1,4 @@
 # scrapper
+
+#### Running
+```sbt run```

@@ -31,15 +31,16 @@ class UrlScrapper extends Scrapper {
             SuccessfulResponse(parser.parse(document)) // Check if it can have an error.
           case FailedResponse(error) => FailedResponse(error)
         }
-      case None => Future.successful(FailedResponse[String](NoParserFoundError(url))) // Change for the actual error.
+      case None => Future.successful(FailedResponse[String](NoParserFoundError(url)))
     }
   }
 
   /**
-   * Scaps several urls, returning the json-lds for all of them once the last one has been parsed.
+   * Scraps several urls, returning the json-lds for all of them once the last one has been parsed.
    * @param urls A list containing all the urls to be parsed.
    * @return A Response that will contain all the json-lds if all the pages could be parsed successfully.
    */
+    // This would make more sense if it was done with a stream and the json-lds were streamed as soon as they've been parsed.
   override def batchScrap(urls: List[String]): Future[Response[List[String]]] = {
     if (urls.isEmpty) Future.successful(FailedResponse(NoParserFoundError(urls.head)))
     val registry = new UrlRegistry()
@@ -52,7 +53,7 @@ class UrlScrapper extends Scrapper {
               parser.parse(document)
           }
         }).map(list => SuccessfulResponse(list))
-      case None => Future.successful(FailedResponse(NoParserFoundError(urls.head))) // Change for the actual error.
+      case None => Future.successful(FailedResponse(NoParserFoundError(urls.head)))
     }
   }
 }
