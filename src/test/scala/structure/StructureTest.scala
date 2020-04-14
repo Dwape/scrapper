@@ -14,7 +14,6 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-// Change name
 class StructureTest extends AnyFlatSpec with Matchers {
 
   "Values" should "be parsable" in {

@@ -1,7 +1,7 @@
 package registry
 import parser.Parser
 import search.{FinderBuilder, JsonSearchPropertyBuilder}
-import structure.{JsonObjectValue, JsonValue, Property, Value}
+import structure.{JsonObjectValue, JsonValue, Property, StringValue, Value}
 
 /**
  * An implementation of the REgistry trait.
@@ -55,7 +55,9 @@ class UrlRegistry extends Registry {
             .attributeValue("type", "application/ld+json")
             .forIndex(0)
             .selectHTML()
-          JsonObjectValue(parser)
+          val structure = JsonObjectValue(parser)
+          structure
+            .addPropertyAtIndex(Property("@id", StringValue(url)), 0)
         }
       }
       Some(result)
